@@ -19,10 +19,10 @@ auto-negotiation when phy is in loop back mode. However, the auto-negotiation fa
 
 Toolchain supported
 ===================
-- IAR embedded Workbench  9.10.2
-- Keil MDK  5.34
-- GCC ARM Embedded  10.2.1
-- MCUXpresso  11.4.0
+- IAR embedded Workbench  8.50.9
+- Keil MDK  5.33
+- GCC ARM Embedded  9.3.1
+- MCUXpresso  11.3.0
 
 Hardware requirements
 =====================
@@ -33,8 +33,7 @@ Hardware requirements
 
 Board settings
 ==============
-If Rx frame CRC error occurs, try to populate a suitable C66. The REV C/C1 boards populate 22pF which is high and may result in CRC
-errors on some of boards, if this is the case C66 may be removed or replaced by a smaller capacitor.
+Need to populate a 22pf capacitor to C66.
 
 Prepare the Demo
 ================

@@ -32,17 +32,20 @@ extern "C" {
  */
 void BOARD_InitBootPins(void);
 
+
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *
  */
 void BOARD_InitPins(void);                    /* Function assigned for the Cortex-M7F */
 
+
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *
  */
 void BOARD_InitEnetPins(void);                /* Function assigned for the Cortex-M7F */
+
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.

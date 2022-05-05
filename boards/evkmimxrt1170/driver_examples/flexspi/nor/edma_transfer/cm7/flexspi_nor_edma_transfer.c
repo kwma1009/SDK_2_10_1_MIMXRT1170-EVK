@@ -208,30 +208,7 @@ int main(void)
 
     /* Erase sectors. */
     PRINTF("Erasing Serial NOR over FlexSPI...\r\n");
-
-    /* Disable I cache to avoid cache pre-fatch instruction with branch prediction from flash
-       and application operate flash synchronously in multi-tasks. */
-#if defined(__ICACHE_PRESENT) && (__ICACHE_PRESENT == 1U)
-    volatile bool ICacheEnableFlag = false;
-    /* Disable I cache. */
-    if (SCB_CCR_IC_Msk == (SCB_CCR_IC_Msk & SCB->CCR))
-    {
-        SCB_DisableICache();
-        ICacheEnableFlag = true;
-    }
-#endif /* __ICACHE_PRESENT */
-
     status = flexspi_nor_flash_erase_sector(EXAMPLE_FLEXSPI, EXAMPLE_SECTOR * SECTOR_SIZE);
-
-#if defined(__ICACHE_PRESENT) && (__ICACHE_PRESENT == 1U)
-    if (ICacheEnableFlag)
-    {
-        /* Enable I cache. */
-        SCB_EnableICache();
-        ICacheEnableFlag = false;
-    }
-#endif /* __ICACHE_PRESENT */
-
     if (status != kStatus_Success)
     {
         PRINTF("Erase sector failure !\r\n");
@@ -261,27 +238,8 @@ int main(void)
         s_nor_program_buffer[i] = i;
     }
 
-#if defined(__ICACHE_PRESENT) && (__ICACHE_PRESENT == 1U)
-    /* Disable I cache. */
-    if (SCB_CCR_IC_Msk == (SCB_CCR_IC_Msk & SCB->CCR))
-    {
-        SCB_DisableICache();
-        ICacheEnableFlag = true;
-    }
-#endif /* __ICACHE_PRESENT */
-
     status =
         flexspi_nor_flash_page_program(EXAMPLE_FLEXSPI, EXAMPLE_SECTOR * SECTOR_SIZE, (void *)s_nor_program_buffer);
-
-#if defined(__ICACHE_PRESENT) && (__ICACHE_PRESENT == 1U)
-    if (ICacheEnableFlag)
-    {
-        /* Enable I cache. */
-        SCB_EnableICache();
-        ICacheEnableFlag = false;
-    }
-#endif /* __ICACHE_PRESENT */
-
     if (status != kStatus_Success)
     {
         PRINTF("Page program failure !\r\n");

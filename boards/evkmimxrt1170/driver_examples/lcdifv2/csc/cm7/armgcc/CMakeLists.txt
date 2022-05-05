@@ -1,6 +1,6 @@
 # CROSS COMPILER SETTING
 SET(CMAKE_SYSTEM_NAME Generic)
-CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
+CMAKE_MINIMUM_REQUIRED (VERSION 3.1.1)
 
 # THE VERSION NUMBER
 SET (Tutorial_VERSION_MAJOR 1)
@@ -42,7 +42,6 @@ add_executable(${MCUX_SDK_PROJECT_NAME}
 "${ProjDirPath}/../clock_config.h"
 "${ProjDirPath}/../dcd.c"
 "${ProjDirPath}/../dcd.h"
-"${ProjDirPath}/../evkmimxrt1170_connect_cm4_cm7side.jlinkscript"
 )
 
 target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
@@ -59,12 +58,12 @@ set(CMAKE_MODULE_PATH
     ${ProjDirPath}/../../../../../../../components/video/display/rm68200
     ${ProjDirPath}/../../../../../../../devices/MIMXRT1176/utilities/debug_console_lite
     ${ProjDirPath}/../../../../../../../devices/MIMXRT1176
+    ${ProjDirPath}/../../../../../../../CMSIS/Include
     ${ProjDirPath}/../../../../../../../components/uart
     ${ProjDirPath}/../../../../../../../components/lists
     ${ProjDirPath}/../../../../../../../devices/MIMXRT1176/xip
     ${ProjDirPath}/../../../../../xip
     ${ProjDirPath}/../../../../../../../devices/MIMXRT1176/drivers/cm7
-    ${ProjDirPath}/../../../../../../../CMSIS/Core/Include
     ${ProjDirPath}/../../../../../../../devices/MIMXRT1176/utilities
 )
 
@@ -97,6 +96,8 @@ include(driver_clock_MIMXRT1176_cm7)
 
 include(device_MIMXRT1176_CMSIS_MIMXRT1176_cm7)
 
+include(CMSIS_Include_core_cm7_MIMXRT1176_cm7)
+
 include(component_lpuart_adapter_MIMXRT1176_cm7)
 
 include(component_lists_MIMXRT1176_cm7)
@@ -109,7 +110,7 @@ include(driver_iomuxc_MIMXRT1176_cm7)
 
 include(driver_xip_device_MIMXRT1176_cm7)
 
-include(driver_xip_board_evkmimxrt1170_MIMXRT1176_cm7)
+include(driver_xip_board_MIMXRT1176_cm7)
 
 include(driver_pmu_1_MIMXRT1176_cm7)
 
@@ -119,13 +120,13 @@ include(driver_cache_armv7_m7_MIMXRT1176_cm7)
 
 include(driver_anatop_ai_MIMXRT1176_cm7)
 
-include(CMSIS_Include_core_cm_MIMXRT1176_cm7)
-
 include(driver_soc_mipi_csi2rx_MIMXRT1176_cm7)
 
-include(driver_memory_MIMXRT1176_cm7)
-
 include(utilities_misc_utilities_MIMXRT1176_cm7)
+
+include(CMSIS_Include_common_MIMXRT1176_cm7)
+
+include(CMSIS_Include_dsp_MIMXRT1176_cm7)
 
 include(device_MIMXRT1176_system_MIMXRT1176_cm7)
 

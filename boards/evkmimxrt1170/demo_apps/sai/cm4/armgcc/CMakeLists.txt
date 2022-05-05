@@ -1,6 +1,6 @@
 # CROSS COMPILER SETTING
 SET(CMAKE_SYSTEM_NAME Generic)
-CMAKE_MINIMUM_REQUIRED (VERSION 3.10.0)
+CMAKE_MINIMUM_REQUIRED (VERSION 3.1.1)
 
 # THE VERSION NUMBER
 SET (Tutorial_VERSION_MAJOR 1)
@@ -58,20 +58,21 @@ target_include_directories(${MCUX_SDK_PROJECT_NAME} PRIVATE
 set(CMAKE_MODULE_PATH
     ${ProjDirPath}/../../../../../../devices/MIMXRT1176/drivers
     ${ProjDirPath}/../../../../../../components/codec/wm8960
-    ${ProjDirPath}/../../../../../../CMSIS/DSP
+    ${ProjDirPath}/../../../../../../CMSIS/DSP/Lib
     ${ProjDirPath}/../../../../../../middleware/fatfs
     ${ProjDirPath}/../../../../../../middleware/sdmmc
     ${ProjDirPath}/../../../../../../components/codec
+    ${ProjDirPath}/../../../../../../components/codec/port/wm8960
     ${ProjDirPath}/../../../../../../components/codec/i2c
     ${ProjDirPath}/../../../../../../components/i2c
     ${ProjDirPath}/../../../../../../devices/MIMXRT1176/utilities/debug_console_lite
     ${ProjDirPath}/../../../../../../devices/MIMXRT1176
+    ${ProjDirPath}/../../../../../../CMSIS/Include
     ${ProjDirPath}/../../../../../../components/uart
     ${ProjDirPath}/../../../../../../components/lists
     ${ProjDirPath}/../../../../../../devices/MIMXRT1176/xip
     ${ProjDirPath}/../../../../xip
     ${ProjDirPath}/../../../../../../devices/MIMXRT1176/drivers/cm4
-    ${ProjDirPath}/../../../../../../CMSIS/Core/Include
     ${ProjDirPath}/../../../../../../components/osa
     ${ProjDirPath}/../../../../../../devices/MIMXRT1176/utilities
 )
@@ -81,7 +82,7 @@ include(driver_lpi2c_MIMXRT1176_cm4)
 
 include(driver_wm8960_MIMXRT1176_cm4)
 
-include(CMSIS_DSP_Library_MIMXRT1176_cm4)
+include(CMSIS_DSP_Lib_arm_cortexM4lf_math_MIMXRT1176_cm4)
 
 include(driver_usdhc_MIMXRT1176_cm4)
 
@@ -123,6 +124,8 @@ include(driver_edma_MIMXRT1176_cm4)
 
 include(device_MIMXRT1176_CMSIS_MIMXRT1176_cm4)
 
+include(CMSIS_Include_core_cm4_MIMXRT1176_cm4)
+
 include(component_lpuart_adapter_MIMXRT1176_cm4)
 
 include(component_lists_MIMXRT1176_cm4)
@@ -137,7 +140,7 @@ include(driver_igpio_MIMXRT1176_cm4)
 
 include(driver_xip_device_MIMXRT1176_cm4)
 
-include(driver_xip_board_evkmimxrt1170_MIMXRT1176_cm4)
+include(driver_xip_board_MIMXRT1176_cm4)
 
 include(driver_pmu_1_MIMXRT1176_cm4)
 
@@ -147,15 +150,15 @@ include(driver_cache_lmem_MIMXRT1176_cm4)
 
 include(driver_anatop_ai_MIMXRT1176_cm4)
 
-include(CMSIS_Include_core_cm_MIMXRT1176_cm4)
-
-include(driver_memory_MIMXRT1176_cm4)
-
 include(middleware_sdmmc_osa_bm_MIMXRT1176_cm4)
 
 include(component_osa_bm_MIMXRT1176_cm4)
 
 include(utilities_misc_utilities_MIMXRT1176_cm4)
+
+include(CMSIS_Include_common_MIMXRT1176_cm4)
+
+include(CMSIS_Include_dsp_MIMXRT1176_cm4)
 
 include(device_MIMXRT1176_system_MIMXRT1176_cm4)
 
@@ -172,27 +175,27 @@ target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE nosys)
 
 if(CMAKE_BUILD_TYPE STREQUAL debug)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../CMSIS/DSP/Lib/GCC/libarm_cortexM4lf_math.a)
-endif(CMAKE_BUILD_TYPE STREQUAL debug)
+endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL release)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../CMSIS/DSP/Lib/GCC/libarm_cortexM4lf_math.a)
-endif(CMAKE_BUILD_TYPE STREQUAL release)
+endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL sdram_debug)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../CMSIS/DSP/Lib/GCC/libarm_cortexM4lf_math.a)
-endif(CMAKE_BUILD_TYPE STREQUAL sdram_debug)
+endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL sdram_release)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../CMSIS/DSP/Lib/GCC/libarm_cortexM4lf_math.a)
-endif(CMAKE_BUILD_TYPE STREQUAL sdram_release)
+endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../CMSIS/DSP/Lib/GCC/libarm_cortexM4lf_math.a)
-endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_debug)
+endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_release)
     target_link_libraries(${MCUX_SDK_PROJECT_NAME} PRIVATE ${ProjDirPath}/../../../../../../CMSIS/DSP/Lib/GCC/libarm_cortexM4lf_math.a)
-endif(CMAKE_BUILD_TYPE STREQUAL flexspi_nor_release)
+endif()
 
 TARGET_LINK_LIBRARIES(${MCUX_SDK_PROJECT_NAME} PRIVATE -Wl,--end-group)
 

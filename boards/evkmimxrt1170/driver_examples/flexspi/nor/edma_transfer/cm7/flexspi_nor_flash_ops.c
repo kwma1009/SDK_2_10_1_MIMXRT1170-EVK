@@ -445,15 +445,6 @@ void flexspi_nor_flash_init(FLEXSPI_Type *base)
     }
 #endif /* __DCACHE_PRESENT */
 
-    /* Waiting for bus idle only when FLEXSPI enabled. */
-    if ((base->MCR0 & FLEXSPI_MCR0_MDIS_MASK) != FLEXSPI_MCR0_MDIS_MASK)
-    {
-        /* Make sure flexspi bus idle before change its clock setting. */
-        while (!FLEXSPI_GetBusIdleStatus(base))
-        {
-        }
-    }
-
     flexspi_clock_init();
 
     /*Get FLEXSPI default settings and configure the flexspi. */

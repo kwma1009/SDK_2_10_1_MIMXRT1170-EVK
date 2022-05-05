@@ -11,10 +11,10 @@ is not enabled, offset level is level 0, hysteresis level is level 0.
 
 Toolchain supported
 ===================
-- IAR embedded Workbench  9.10.2
-- Keil MDK  5.34
-- MCUXpresso  11.4.0
-- GCC ARM Embedded  10.2.1
+- IAR embedded Workbench  8.50.9
+- Keil MDK  5.33
+- MCUXpresso  11.3.0
+- GCC ARM Embedded  9.3.1
 
 Hardware requirements
 =====================
@@ -49,7 +49,7 @@ Prepare the Demo
 Running the demo
 ================
 If the input voltage input is in the range of 0.9V to 1.8V, that means the analog input is higher than DAC output.
-If the input voltage input is in the range of 0V to 0.9V, that means the analog input is lower than DAC output. 
+If the input voltage input is in the range of 0V to 1.8V, that means the analog input is lower than DAC output. 
 
 When the demo runs successfully, following information can be seen on the terminal:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

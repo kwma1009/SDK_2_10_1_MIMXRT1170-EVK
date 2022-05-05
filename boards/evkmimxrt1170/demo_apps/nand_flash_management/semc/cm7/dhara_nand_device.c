@@ -70,8 +70,6 @@ int dhara_nand_prog(const struct dhara_nand *n, dhara_page_t p, const uint8_t *d
     if (Nand_Flash_Page_Program(DHARA_HANDLE_COVERT_TO_NAND(n), p, dataBuffer, pageSize + spareSize) != kStatus_Success)
     {
         status = -1;
-        /* If page program failed, mark this specific block as bad block. */
-        dhara_set_error(err, DHARA_E_BAD_BLOCK);
     }
 
     SDK_Free(dataBuffer);
@@ -80,8 +78,6 @@ int dhara_nand_prog(const struct dhara_nand *n, dhara_page_t p, const uint8_t *d
                                 DHARA_HANDLE_COVERT_TO_NAND(n)->bytesInPageDataArea) != kStatus_Success)
     {
         status = -1;
-        /* If page program failed, mark this specific block as bad block. */
-        dhara_set_error(err, DHARA_E_BAD_BLOCK);
     }
 #endif
 

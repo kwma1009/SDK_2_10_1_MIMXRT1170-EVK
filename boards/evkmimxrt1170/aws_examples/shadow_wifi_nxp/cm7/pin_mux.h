@@ -1,5 +1,5 @@
 /*
- * Copyright 2020-2021 NXP
+ * Copyright 2020 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -37,40 +37,6 @@ void BOARD_InitBootPins(void);
  *
  */
 void BOARD_InitPins(void);                    /* Function assigned for the Cortex-M7F */
-
-/* GPIO_AD_16 (coord N17), SDIO_RST */
-/* Routed pin properties */
-#define BOARD_INITM2WIFIRESETPINS_SDIO_RST_PERIPHERAL                      GPIO9   /*!< Peripheral name */
-#define BOARD_INITM2WIFIRESETPINS_SDIO_RST_SIGNAL                        gpio_io   /*!< Signal name */
-#define BOARD_INITM2WIFIRESETPINS_SDIO_RST_CHANNEL                           15U   /*!< Signal channel */
-
-/* Symbols to be used with GPIO driver */
-#define BOARD_INITM2WIFIRESETPINS_SDIO_RST_GPIO                            GPIO9   /*!< GPIO peripheral base pointer */
-#define BOARD_INITM2WIFIRESETPINS_SDIO_RST_GPIO_PIN                          15U   /*!< GPIO pin number */
-#define BOARD_INITM2WIFIRESETPINS_SDIO_RST_GPIO_PIN_MASK             (1U << 15U)   /*!< GPIO pin mask */
-
-/*!
- * @brief Configures pin routing and optionally pin electrical features.
- *
- */
-void BOARD_InitM2WifiResetPins(void);         /* Function assigned for the Cortex-M7F */
-
-/* GPIO_AD_31 (coord J17), WL_RST */
-/* Routed pin properties */
-#define BOARD_INITWLRSTPIN_WL_RST_PERIPHERAL                               GPIO9   /*!< Peripheral name */
-#define BOARD_INITWLRSTPIN_WL_RST_SIGNAL                                 gpio_io   /*!< Signal name */
-#define BOARD_INITWLRSTPIN_WL_RST_CHANNEL                                    30U   /*!< Signal channel */
-
-/* Symbols to be used with GPIO driver */
-#define BOARD_INITWLRSTPIN_WL_RST_GPIO                                     GPIO9   /*!< GPIO peripheral base pointer */
-#define BOARD_INITWLRSTPIN_WL_RST_GPIO_PIN                                   30U   /*!< GPIO pin number */
-#define BOARD_INITWLRSTPIN_WL_RST_GPIO_PIN_MASK                      (1U << 30U)   /*!< GPIO pin mask */
-
-/*!
- * @brief Configures pin routing and optionally pin electrical features.
- *
- */
-void BOARD_InitWlRstPin(void);                /* Function assigned for the Cortex-M7F */
 
 #if defined(__cplusplus)
 }

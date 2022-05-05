@@ -5,9 +5,9 @@
 **                          MIMXRT1176DVMAA_cm7
 **
 **     Compiler:            GNU C Compiler
-**     Reference manual:    IMXRT1170RM, Rev 1, 02/2021
+**     Reference manual:    IMXRT1170RM, Rev 0, 12/2020
 **     Version:             rev. 1.0, 2020-12-29
-**     Build:               b210402
+**     Build:               b210202
 **
 **     Abstract:
 **         Linker file for the GNU C Compiler
@@ -27,8 +27,8 @@
 /* Entry Point */
 ENTRY(Reset_Handler)
 
-HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x0400;
-STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x0400;
+HEAP_SIZE  = DEFINED(__heap_size__)  ? __heap_size__  : 0x800000;
+STACK_SIZE = DEFINED(__stack_size__) ? __stack_size__ : 0x10000;
 VECTOR_RAM_SIZE = DEFINED(__ram_vector_table__) ? 0x00000400 : 0;
 NCACHE_HEAP_START = DEFINED(__heap_noncacheable__) ? 0x84000000 - HEAP_SIZE : 0x83000000 - HEAP_SIZE;
 NCACHE_HEAP_SIZE  = DEFINED(__heap_noncacheable__) ? HEAP_SIZE : 0x0000;
@@ -40,7 +40,6 @@ MEMORY
   m_ivt                 (RX)  : ORIGIN = 0x30001000, LENGTH = 0x00001000
   m_interrupts          (RX)  : ORIGIN = 0x30002000, LENGTH = 0x00000400
   m_text                (RX)  : ORIGIN = 0x30002400, LENGTH = 0x00FFDC00
-  m_qacode              (RX)  : ORIGIN = 0x00000000, LENGTH = 0x00040000
   m_data                (RW)  : ORIGIN = 0x80000000, LENGTH = DEFINED(__heap_noncacheable__) ? 0x03000000 : 0x03000000 - HEAP_SIZE
   m_ncache              (RW)  : ORIGIN = 0x83000000, LENGTH = DEFINED(__heap_noncacheable__) ? 0x01000000 - HEAP_SIZE : 0x01000000
   m_data2               (RW)  : ORIGIN = 0x20000000, LENGTH = 0x00040000
@@ -67,9 +66,9 @@ SECTIONS
   .ivt : AT(ivt_begin)
   {
     . = ALIGN(4);
-    KEEP(* (.boot_hdr.ivt))           /* ivt section */
-    KEEP(* (.boot_hdr.boot_data))     /* boot section */
-    KEEP(* (.boot_hdr.dcd_data))      /* dcd section */
+      KEEP(* (.boot_hdr.ivt))           /* ivt section */
+      KEEP(* (.boot_hdr.boot_data))     /* boot section */
+      KEEP(* (.boot_hdr.dcd_data))      /* dcd section */
     . = ALIGN(4);
   } > m_ivt
 
@@ -198,19 +197,7 @@ SECTIONS
     . = ALIGN(4);
     __data_end__ = .;        /* define a global symbol at data end */
   } > m_data
-
-  __ram_function_flash_start = __DATA_ROM + (__data_end__ - __data_start__); /* Symbol is used by startup for TCM data initialization */
-
-  .ram_function : AT(__ram_function_flash_start)
-  {
-    . = ALIGN(32);
-    __ram_function_start__ = .;
-    *(CodeQuickAccess)
-    . = ALIGN(128);
-    __ram_function_end__ = .;
-  } > m_qacode
-
-  __NDATA_ROM = __ram_function_flash_start + (__ram_function_end__ - __ram_function_start__);
+  __NDATA_ROM = __DATA_ROM + (__data_end__ - __data_start__);
   .ncache.init : AT(__NDATA_ROM)
   {
     __noncachedata_start__ = .;   /* create a global symbol at ncache data start */

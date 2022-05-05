@@ -62,11 +62,11 @@
  * Prototypes
  ******************************************************************************/
 /* Declaration of demo function. */
-extern int RunDeviceShadowDemo(bool awsIotMqttMode,
-                               const char *pIdentifier,
-                               void *pNetworkServerInfo,
-                               void *pNetworkCredentialInfo,
-                               const IotNetworkInterface_t *pNetworkInterface);
+extern int RunShadowDemo(bool awsIotMqttMode,
+                         const char *pIdentifier,
+                         void *pNetworkServerInfo,
+                         void *pNetworkCredentialInfo,
+                         const IotNetworkInterface_t *pNetworkInterface);
 
 /*******************************************************************************
  * Variables
@@ -90,7 +90,7 @@ void vApplicationDaemonTaskStartupHook(void)
     if (SYSTEM_Init() == pdPASS)
     {
         static demoContext_t mqttDemoContext = {.networkTypes                = AWSIOT_NETWORK_TYPE_WIFI,
-                                                .demoFunction                = RunDeviceShadowDemo,
+                                                .demoFunction                = RunShadowDemo,
                                                 .networkConnectedCallback    = NULL,
                                                 .networkDisconnectedCallback = NULL};
 
@@ -102,27 +102,10 @@ int main(void)
 {
     BOARD_ConfigMPU();
     BOARD_InitBootPins();
-#if defined(WIFI_88W8987_BOARD_AW_CM358MA)
-    /* Init SDIO_RST */
-    BOARD_InitM2WifiResetPins();
-#endif
-
-#if defined(HOST_PDN_RESET)
-    /* Init WL_RST */
-    BOARD_InitWlRstPin();
-#endif
-
     BOARD_InitBootClocks();
     BOARD_InitDebugConsole();
-#if defined(WIFI_88W8987_BOARD_AW_CM358MA)
-    /* Set SDIO_RST to 1 */
-    GPIO_PinWrite(BOARD_INITM2WIFIRESETPINS_SDIO_RST_GPIO, BOARD_INITM2WIFIRESETPINS_SDIO_RST_GPIO_PIN, 1U);
-#endif
 
-#if defined(HOST_PDN_RESET)
-    /* Set WL_RST to 1 */
-    GPIO_PinWrite(BOARD_INITWLRSTPIN_WL_RST_GPIO, BOARD_INITWLRSTPIN_WL_RST_GPIO_PIN, 1U);
-#endif
+    SCB_DisableDCache();
     CRYPTO_InitHardware();
 
     xLoggingTaskInitialize(LOGGING_TASK_STACK_SIZE, LOGGING_TASK_PRIORITY, LOGGING_QUEUE_LENGTH);
